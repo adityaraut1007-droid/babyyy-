@@ -1,0 +1,134 @@
+window.onload = function(){
+
+let intro = document.getElementById("intro");
+let main = document.getElementById("main");
+let music = document.getElementById("music");
+let name = document.getElementById("name");
+let typing = document.getElementById("typing");
+let slide = document.getElementById("slide");
+let bg = document.getElementById("bg");
+
+/* INTRO FIX */
+setTimeout(()=>{
+  intro.innerHTML = "Tap anywhere to continue 💖";
+
+  function startEverything(){
+    intro.style.display = "none";
+    main.style.display = "block";
+    startAll();
+  }
+
+  document.addEventListener("click", startEverything, { once:true });
+  document.addEventListener("touchstart", startEverything, { once:true });
+
+},4000);
+
+
+/* START */
+function startAll(){
+
+  let m = music;
+  m.volume = 0;
+
+  let playPromise = m.play();
+  if(playPromise){
+    playPromise.catch(()=>{});
+  }
+
+  let v=0;
+  let f=setInterval(()=>{
+    if(v<1){v+=0.05; m.volume=v;}
+    else clearInterval(f);
+  },200);
+
+  typeName();
+  typeText();
+  slideshow();
+  confetti();
+  autoFire();
+
+  setTimeout(()=>{
+    document.getElementById("finalMsg").classList.add("showFinal");
+  },15000);
+}
+
+/* NAME */
+let nameText="HAPPY BIRTHDAY PRINCESS 👸🏻💖";
+let ni=0;
+function typeName(){
+ if(ni<nameText.length){
+  name.innerHTML+=nameText.charAt(ni);
+  ni++;
+  setTimeout(typeName,80);
+ }
+}
+
+/* MESSAGE */
+let msg=`Panoo, there are 3 dates that are very important to me.
+The first is 18 February 2024 — the day we talked for the first time on chat.
+The second is 5 July 2025 — the day we came into a relationship.
+And the last, the most special one, is 7 May — my Bhaluuu’s birthday.
+Happy Birthday My Bhaluuu 🎂❤️💋
+I pray to God that all your dreams come true. Always keep smiling and always be mine 🙈
+May you get all the happiness in the world.
+Honestly, today I should have been with you celebrating your birthday. I really wanted to celebrate it with you, but because of my exams, it’s not possible right now 🥺
+I feel really bad about this…
+But it’s just this one birthday that I’m not able to celebrate with you. From now on, I’ll always be there with you, Panoo
+Happiest Birthday Wifeyyy 🎂👸🏻🧿💋✨
+
+"Tumse hi shuru, tumpe hi khatam meri har baat ho,
+Tum paas raho to har din khaas ho…
+Dil chahta hai bas itna,
+Har janam mein tum hi meri saath ho❤️"`;
+
+let i=0;
+function typeText(){
+ if(i<msg.length){
+  typing.innerHTML+=msg.charAt(i);
+  i++;
+  setTimeout(typeText,50);
+ }
+}
+
+/* SLIDESHOW */
+let photos=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg"];
+let idx=0;
+function slideshow(){
+ setInterval(()=>{
+  slide.src=photos[idx];
+  bg.style.backgroundImage="url('"+photos[idx]+"')";
+  idx=(idx+1)%photos.length;
+ },3000);
+}
+
+/* CONFETTI */
+function confetti(){
+ setInterval(()=>{
+  let c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"vw";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),5000);
+ },200);
+}
+
+/* FIREWORKS */
+function autoFire(){
+ setInterval(()=>{
+  for(let i=0;i<15;i++){
+   let s=document.createElement("div");
+   s.className="spark";
+   s.style.left=Math.random()*100+"vw";
+   s.style.top=Math.random()*100+"vh";
+   document.body.appendChild(s);
+   setTimeout(()=>s.remove(),1000);
+  }
+ },1500);
+}
+
+/* SHARE */
+function share(){
+ window.open("https://wa.me/?text=Open%20this%20surprise%20❤️");
+}
+
+}
